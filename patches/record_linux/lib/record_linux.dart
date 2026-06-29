@@ -9,23 +9,17 @@ class RecordLinuxPlugin {
 
 class RecordLinux extends RecordPlatform {
   @override
-  Future<bool> hasPermission(String recorderId, {bool request = true}) async => false;
+  Future<void> create(String recorderId) async {}
 
   @override
-  Future<String?> start(String recorderId, RecordConfig config, String path) async => null;
+  Future<void> start(String recorderId, RecordConfig config, {required String path}) async {}
 
   @override
   Future<Stream<Uint8List>> startStream(String recorderId, RecordConfig config) async =>
       const Stream.empty();
 
   @override
-  Future<void> stop(String recorderId) async {}
-
-  @override
-  Future<void> cancel(String recorderId) async {}
-
-  @override
-  Future<void> dispose(String recorderId) async {}
+  Future<String?> stop(String recorderId) async => null;
 
   @override
   Future<void> pause(String recorderId) async {}
@@ -34,17 +28,32 @@ class RecordLinux extends RecordPlatform {
   Future<void> resume(String recorderId) async {}
 
   @override
-  Future<bool> isEncoderSupported(RecordConfig config) async => false;
+  Future<bool> isRecording(String recorderId) async => false;
+
+  @override
+  Future<bool> isPaused(String recorderId) async => false;
+
+  @override
+  Future<bool> hasPermission(String recorderId, {bool request = true}) async => false;
+
+  @override
+  Future<bool> isEncoderSupported(String recorderId, AudioEncoder encoder) async => false;
 
   @override
   Future<bool> isPauseSupported(String recorderId) async => false;
 
   @override
-  Future<Amplitude?> getAmplitude(String recorderId) async => null;
+  Future<Amplitude> getAmplitude(String recorderId) async => Amplitude(current: 0, max: 0);
 
   @override
-  Future<RecordState> getState(String recorderId) async => RecordState.stop;
+  Future<void> cancel(String recorderId) async {}
+
+  @override
+  Future<void> dispose(String recorderId) async {}
 
   @override
   Future<void> setLogLevel(LogLevel? level) async {}
+
+  @override
+  Future<RecordState> getState(String recorderId) async => RecordState.stop;
 }
