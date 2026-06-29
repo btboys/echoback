@@ -25,8 +25,18 @@ jobs:
       - name: Build AAB (release)
         run: flutter build appbundle --release
 
+      - name: Set up Android SDK
+        run: |
+          SDK=/usr/local/lib/android/sdk
+          if [ -d "$SDK" ]; then
+            BT=$(ls "$SDK/build-tools/" | head -1)
+            if [ -n "$BT" ] && [ "$BT" != "29.0.3" ]; then
+              ln -s "$SDK/build-tools/$BT" "$SDK/build-tools/29.0.3"
+            fi
+          fi
+
       - name: Sign APK
-        uses: r0adkll/sign-android-release@v2
+        uses: r0adkll/sign-android-release@v1
         with:
           releaseDirectory: build/app/outputs/flutter-apk
           signingKeyBase64: ${{ secrets.ANDROID_SIGNING_KEY }}
