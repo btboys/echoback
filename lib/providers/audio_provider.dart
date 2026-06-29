@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 import '../services/audio_engine.dart';
 
 class AudioProvider extends ChangeNotifier {
@@ -22,12 +23,21 @@ class AudioProvider extends ChangeNotifier {
   double get volumeGain => _volumeGain;
   List<double> get waveformData => _waveformData;
 
+  void _updateWakeLock() {
+    if (_isMonitoring || _isRecording) {
+      WakelockPlus.enable();
+    } else {
+      WakelockPlus.disable();
+    }
+  }
+
   Future<bool> toggleMonitoring() async {
     if (_isMonitoring) {
       await _engine.stopMonitoring();
       _isMonitoring = false;
       await _waveformSub?.cancel();
       _waveformSub = null;
+      _updateWakeLock();
       notifyListeners();
       return true;
     } else {
@@ -44,6 +54,7 @@ class AudioProvider extends ChangeNotifier {
           notifyListeners();
         });
       }
+      _updateWakeLock();
       notifyListeners();
       return success;
     }
@@ -82,6 +93,7 @@ class AudioProvider extends ChangeNotifier {
 
   void setRecording(bool recording) {
     _isRecording = recording;
+    _updateWakeLock();
     notifyListeners();
   }
 
@@ -89,6 +101,7 @@ class AudioProvider extends ChangeNotifier {
 
   @override
   void dispose() {
+    WakelockPlus.disable();
     _waveformSub?.cancel();
     _engine.stopMonitoring();
     super.dispose();
