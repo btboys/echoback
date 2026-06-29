@@ -26,13 +26,13 @@ jobs:
         run: flutter build appbundle --release
 
       - name: Sign APK
-        uses: r0adkll/sign-android-release@v1
+        uses: r0adkll/sign-android-release@v2
         with:
           releaseDirectory: build/app/outputs/flutter-apk
           signingKeyBase64: ${{ secrets.ANDROID_SIGNING_KEY }}
           keyStorePassword: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           keyPassword: ${{ secrets.ANDROID_KEY_PASSWORD }}
-          keyAlias: ${{ secrets.ANDROID_KEY_ALIAS }}
+          alias: ${{ secrets.ANDROID_KEY_ALIAS }}
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
