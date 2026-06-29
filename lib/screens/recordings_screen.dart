@@ -66,7 +66,6 @@ class _RecordingsScreenState extends State<RecordingsScreen> {
       ),
     );
     if (confirmed != true) return;
-    final provider = context.read<RecordingProvider>();
     final items = provider.recordings.where((r) => _selected.contains(r.id)).toList();
     await provider.deleteMultiple(items);
     setState(() {

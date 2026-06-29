@@ -17,6 +17,6 @@ void main() {
     );
 
     expect(find.text('EchoBack'), findsOneWidget);
-    expect(find.text('实时耳返监听'), findsOneWidget);
+    expect(find.text('Real-time Ear Monitor'), findsOneWidget);
   });
 }
