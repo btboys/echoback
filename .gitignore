@@ -1,0 +1,59 @@
+# Flutter
+.dart_tool/
+.packages
+build/
+*.iml
+.metadata
+
+# Android
+android/.gradle/
+android/app/build/
+android/local.properties
+android/key.properties
+*.apk
+*.aab
+*.jks
+*.keystore
+
+# iOS
+ios/Pods/
+ios/.symlinks/
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+ios/Runner.xcodeproj/project.xcworkspace
+ios/Runner.xcodeproj/xcshareddata/xcschemes/
+
+# macOS
+macos/Pods/
+macos/.symlinks/
+macos/Runner.xcodeproj/project.xcworkspace
+macos/Runner.xcodeproj/xcshareddata/xcschemes/
+
+# Linux
+linux/flutter/ephemeral
+linux/flutter/generated_plugin_registrant.*
+
+# Windows
+windows/flutter/ephemeral
+windows/flutter/generated_plugin_registrant.*
+
+# Web
+web/fonts/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.local
+
+# Recording data
+android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
