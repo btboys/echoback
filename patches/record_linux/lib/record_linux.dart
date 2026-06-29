@@ -40,9 +40,6 @@ class RecordLinux extends RecordPlatform {
   Future<bool> isEncoderSupported(String recorderId, AudioEncoder encoder) async => false;
 
   @override
-  Future<bool> isPauseSupported(String recorderId) async => false;
-
-  @override
   Future<Amplitude> getAmplitude(String recorderId) async => Amplitude(current: 0, max: 0);
 
   @override
@@ -52,11 +49,8 @@ class RecordLinux extends RecordPlatform {
   Future<void> dispose(String recorderId) async {}
 
   @override
-  Future<RecordState> getState(String recorderId) async => RecordState.stop;
-
-  @override
   Stream<RecordState> onStateChanged(String recorderId) => const Stream.empty();
 
   @override
-  Future<List<InputDevice>> listInputDevices() async => [];
+  Future<List<InputDevice>> listInputDevices(String recorderId) async => [];
 }

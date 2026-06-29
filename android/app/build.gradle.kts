@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
+    id("org.jetbrains.kotlin.android")
     id("dev.flutter.flutter-gradle-plugin")
 }
 
@@ -42,4 +43,19 @@ kotlin {
 
 flutter {
     source = "../.."
+}
+
+// Patch the auto-generated GeneratedPluginRegistrant.java to remove
+// old-style plugin references for Kotlin-only plugins (file_picker 11+).
+tasks.matching { it.name.startsWith("compile") && it.name.contains("JavaWithJavac") }.configureEach {
+    doFirst {
+        val registrant = file("src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java")
+        if (registrant.exists()) {
+            val content = registrant.readText()
+            val patched = content
+                .replace(Regex("""try \{[^}]*FilePickerPlugin[^}]*\}[^}]*\}"""), "")
+                .replace(Regex("\n{3,}"), "\n\n")
+            registrant.writeText(patched)
+        }
+    }
 }
