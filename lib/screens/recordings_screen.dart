@@ -48,6 +48,7 @@ class _RecordingsScreenState extends State<RecordingsScreen> {
   }
 
   Future<void> _deleteSelected() async {
+    final provider = context.read<RecordingProvider>();
     final count = _selected.length;
     final confirmed = await showDialog<bool>(
       context: context,

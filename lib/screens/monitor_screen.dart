@@ -322,7 +322,7 @@ class _MonitorScreenState extends State<MonitorScreen>
         duration: const Duration(milliseconds: 80),
         width: 120,
         height: 120,
-        transform: Matrix4.identity()..scale(breatheScale),
+        transform: Matrix4.identity()..scaleByDouble(breatheScale),
         transformAlignment: Alignment.center,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
