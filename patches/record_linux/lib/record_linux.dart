@@ -52,8 +52,11 @@ class RecordLinux extends RecordPlatform {
   Future<void> dispose(String recorderId) async {}
 
   @override
-  Future<void> setLogLevel(LogLevel? level) async {}
+  Future<RecordState> getState(String recorderId) async => RecordState.stop;
 
   @override
-  Future<RecordState> getState(String recorderId) async => RecordState.stop;
+  Stream<RecordState> onStateChanged(String recorderId) => const Stream.empty();
+
+  @override
+  Future<List<InputDevice>> listInputDevices() async => [];
 }
